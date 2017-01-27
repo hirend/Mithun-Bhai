@@ -1,0 +1,125 @@
+.top1 { margin-top:1%; }
+.top2 { margin-top:2%; }
+.top3 { margin-top:3%; }
+
+.alert-danger-alt { border-color: #B63E5A;background: #E26868;color: #fff; }
+.alert-success-alt { border-color: #19B99A;background: #20A286;color: #fff; }
+.alert-info-alt { border-color: #B4E1E4;background: #81c7e1;color: #fff; }
+
+select:required:invalid {
+  color: gray;
+}
+option[value=""][disabled] {
+  display: none;
+}
+option {
+  color: black;
+}
+
+fieldset{
+    background: #fef1e7;
+    padding: 16px;
+    border: 1px solid #ab5107;
+}
+.addfields{
+    margin: 10px 0;
+}
+
+#choicesDisplay {
+    padding: 10px;
+    background: rgb(227, 250, 227);
+    border: 1px solid rgb(171, 239, 171);
+    color: rgb(9, 56, 9);
+}
+.remove{
+    background: #C76868;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 21px;
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
+    padding: 4px 9px;
+    vertical-align: top;
+    line-height: 100%;   
+}
+input[type="text"],
+select{
+    padding:5px;
+}
+
+
+.dropdown-menu {
+    border-radius:0px;
+    padding:0;
+    background-color: #EFEFEF;
+}
+.uib-datepicker-popup .btn-default {
+    background-color: #EFEFEF;
+    border-color: #EFEFEF;
+    font-family: Calibri;
+    font-size: 0.88em;
+    color: #595959;
+}
+.uib-datepicker-popup .btn-info.active {
+    font-family: Calibri;
+    font-size: 0.88em;
+    color: #2EA5F0;
+    box-shadow: inset 0 3px 5px rgba(46,165,240,.125);
+    font-weight: bold;
+    border: 2px solid #2EA5F0;
+}
+.uib-datepicker-popup th {
+    font-family: Calibri;
+    font-size: 0.56em;
+    color: #AEAEAE;
+}
+.uib-datepicker-popup .uib-title {
+    font-family: Calibri;
+    font-size: 1.47em;
+    color: #595959;
+}
+.uib-datepicker-popup small {
+    font-size: 1.47em !important;
+}
+.date-label {
+    font-size: 0.68em;
+    font-family: Calibri;
+    color: #C3C2C2;
+}
+.alert-msg {
+    font-weight: bold;
+    display: block;
+    font-size: 12px;
+}
+.thin-gray-border {
+    border-bottom: 2px solid #CCC;
+}
+.thin-red-border {
+    border-bottom: 2px solid red;
+}
+.date-width {
+    width: 17%;
+}
+.date-selection-field {
+    display: inline-block;
+}
+.date-selection-field button {
+    border: none;
+    background: none;
+}
+.date-selection-field input[type="text"]{
+    background-color: transparent;
+    border: none;
+    padding: 2px;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    cursor:default;
+    width: 80px;
+    font-family: Calibri;
+    font-size: 1em;
+    color: #595959;
+    font-weight: bold;
+}

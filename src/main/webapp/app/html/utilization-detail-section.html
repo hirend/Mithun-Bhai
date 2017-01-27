@@ -1,0 +1,60 @@
+<!--
+  ~ Copyright (c) 2016 Vital Images, Inc. All Rights Reserved.
+  ~
+  ~ This is UNPUBLISHED PROPRIETARY SOURCE CODE of Vital Images, Inc.;
+  ~ the contents of this file may not be disclosed to third parties,
+  ~ copied or duplicated in any form, in whole or in part, without the
+  ~ prior written permission of Vital Images, Inc.
+  ~
+  ~ RESTRICTED RIGHTS LEGEND:
+  ~ Use, duplication or disclosure by the Government is subject to
+  ~ restrictions as set forth in subdivision (c)(1)(ii) of the Rights
+  ~ in Technical Data and Computer Software clause at DFARS 252.227-7013,
+  ~ and/or in similar or successor clauses in the FAR, DOD or NASA FAR
+  ~ Supplement. Unpublished rights reserved under the Copyright Laws of
+  ~ the United States.
+  -->
+
+<div class="row no-gutter-horizontal" ng-controller="UtilizationTableController as tblCtrl">
+    <!-- TODO: Linear Gradient - Top to Bottom (this is default) iin tabs -->
+    <div class="row no-gutter-horizontal">
+        <div class="col-xs-12">
+            <ul class="nav nav-tabs session-row">
+                <li class="active"><a href="#" data-toggle="tab" id="user-details-tab" class="parent-font parent-size no-pad-vertical" ng-click="tblCtrl.loadUsers()">Users</a></li>
+                <li><a href="#" data-toggle="tab" class="parent-font parent-size no-pad-vertical" ng-click="tblCtrl.loadApplications()" ng-hide="tblCtrl.hideApplication">Applications</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row no-gutter-horizontal pad-top">
+        <div class="col-xs-12">
+            <table id = "dimension_table" class="table table-fixedheader table-bordered text-center">
+                <thead>
+                <tr class="detail-header-label">
+                    <th width="18%" class="none-border"></th>
+                    <th width="34%" class="header-height-v1"></th>
+                    <th width="12%" class="header-height-v1 border-right"></th>
+                    <th width="36%" class="text-center detail-header-v1 header-padding none-border">Daily Average Session Volume</th>
+                </tr>
+                <tr class="btm-brdr session-volume-headers">
+                    <th width="18%" class="none-border text-center detail-header-v1 sort-cursor" ng-click="tblCtrl.sort('col-name')">{{tblCtrl.dimensionName}}</th>
+                    <th width="34%" class="text-center detail-header-v1 header-height-v2">12 Months Trend</th>
+                    <th width="12%" class="text-center detail-header-v1 sort-cursor border-right" ng-click="tblCtrl.sort('col-total')">Total Session Volume<br>{{tblCtrl.dateRange}}</th>
+                    <th width="12%" class="none-border text-center detail-header-v2 sort-cursor daily-avg-margin" ng-click="tblCtrl.sort('col-period')">{{tblCtrl.dateRange}}</th><!-- todo: make dates dynamic -->
+                    <th width="12%" class="none-border text-center detail-header-v2 sort-cursor" ng-click="tblCtrl.sort('col-year')">Year <br>{{tblCtrl.currentYear}}</th><!-- todo: make dates dynamic -->
+                    <th width="12%" class="none-border text-center detail-header-v2 sort-cursor" ng-click="tblCtrl.sort('col-trend')">Trend<br>Comparison</th>
+                </tr>
+                </thead>
+                <tbody style="height:310px">
+                <tr ng-repeat="row in tblCtrl.dimensionCollection" class="parent-font parent-color table-row">
+                    <td width="18%" class="none-border text-justify" id="col-name">{{row.name}}</td>
+                    <td width="34%"><div dot-graph={{row.monthlyTrends}}></div></td>
+                    <td width="12%" class="row-height border-right" id="col-total">{{row.total}}</td>
+                    <td width="12%" class="none-border row-height" id="col-period">{{row.dailyAvgForPeriod}}</td>
+                    <td width="12%" class="none-border" id="col-year">{{row.dailyAvgForYear}}</td>
+                    <td width="12%" class="none-border" id="col-trend"><span  trend-comp month = {{row.dailyAvgForPeriod}} year = {{row.dailyAvgForYear}}></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

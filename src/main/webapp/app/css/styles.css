@@ -1,0 +1,311 @@
+/*
+ * Copyright (c) 2016 Vital Images, Inc. All Rights Reserved.
+ *
+ * This is UNPUBLISHED PROPRIETARY SOURCE CODE of Vital Images, Inc.;
+ * the contents of this file may not be disclosed to third parties,
+ * copied or duplicated in any form, in whole or in part, without the
+ * prior written permission of Vital Images, Inc.
+ *
+ * RESTRICTED RIGHTS LEGEND:
+ * Use, duplication or disclosure by the Government is subject to
+ * restrictions as set forth in subdivision (c)(1)(ii) of the Rights
+ * in Technical Data and Computer Software clause at DFARS 252.227-7013,
+ * and/or in similar or successor clauses in the FAR, DOD or NASA FAR
+ * Supplement. Unpublished rights reserved under the Copyright Laws of
+ * the United States.
+ */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 14px;
+    font-family: Calibri,Candara,Segoe,"Segoe UI",Optima,Arial,sans-serif;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.menu-bar-container {
+    height: 60px;
+}
+
+.app-container {
+    width: 100%;
+    display: inline-block;
+}
+
+.reset-button {
+    background: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+}
+
+.reset-button:hover {
+    cursor: pointer;
+}
+
+.reset-button:active {
+    outline: none;
+}
+
+.active-component {
+    background-color: #EFEFEF;
+}
+
+.menu-bar {
+    background-color: #E4E2E3;
+    height: 60px;
+    border-bottom: 1px solid #D8D6D7;
+    z-index: 50000;
+}
+
+.current-app {
+    width: 230px;
+    height: inherit;
+    float: left;
+    text-align: center;
+}
+
+.menu-bar-logo-menu {
+    width: 60px;
+    height: inherit;
+    position: absolute;
+    right: 15px;
+}
+
+.menu-bar-center {
+    height: inherit;
+    float: none;
+    overflow: hidden;
+}
+
+.app-menu {
+    position: absolute;
+    top: 60px;
+    background: #EFEFEF;
+    z-index: 50001;
+}
+
+.app-menu-option {
+    width: 230px;
+    height: 60px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.user-profile-menu {
+    width: 175px;
+    position: absolute;
+    right: 0px;
+    top: 60px;
+    background: #EFEFEF;
+    z-index: 50001;
+}
+
+.greeting {
+    font-weight: bold;
+    padding: 10px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    font-size: 14px;
+}
+
+ .pad-10-left {
+    padding-left: 10px;
+ }
+
+.highlighter:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.user-profile-section-option {
+    width: 100%;
+}
+
+.pad-3-top {
+    padding-top: 3px;
+}
+
+.user-profile-section-selector {
+    width: 15px;
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+}
+
+.user-profile-section-label {
+    font-size: 14px;
+    display: inline-block;
+    padding-left: 10px;
+}
+
+.user-profile-menu-section {
+    padding: 10px 0px;
+    border-top: 1px solid #D8D6D7;
+
+}
+
+.user-profile-section-header {
+    padding-bottom: 5px;
+    font-weight: bold;
+    font-size: 11px;
+    color: rgba(0, 0, 0, .3);
+}
+
+.yank-left {
+    text-align: left;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.about-window-shell {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 99;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.about-window-container {
+    font-size: 14px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 500px;
+    height: 200px;
+    background: #EFEFEF;
+    border-radius: 5px;
+    border: 1px solid #D8D6D7;
+    padding: 7px;
+}
+
+.about-logo {
+    background: url(../images/VitalityXT-large.png) no-repeat center center;
+    background-size: 350px 62px;
+    width: 100%;
+    height: 62px;
+    margin-bottom: 20px;
+}
+
+.about-copyright {
+    margin-top: 20px;
+}
+
+.about-version-info {
+    margin-bottom: 20px;
+}
+
+.about-close {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    font-size: 20px;
+    opacity: 0.5;
+}
+
+.clickable-active {
+    color: #2BA4ED;
+}
+
+.clickable-non-active {
+    color: rgba(0, 0, 0, 0.25);
+}
+
+.clickable-active:hover {
+    cursor: pointer;
+}
+
+.clickable-non-active:hover {
+    cursor: pointer;
+}
+
+#about-window a {
+    text-decoration: none;
+}
+
+.about-doc-first {
+    display: inline-block;
+    padding-right: 5px;
+    border-right: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.about-doc-mid {
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-right: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.about-doc-last {
+    display: inline-block;
+    padding-left: 5px;
+}
+
+.clickable-button {
+    display: inline-block;
+    padding: 3px;
+    border-radius: 5px;
+    width: 100px;
+    font-size: .8em;
+}
+
+.disabled-button {
+    border: 1px solid rgba(0, 0, 0, .25);
+    color: rgba(0, 0, 0, 0.25);
+}
+
+.vertical-center {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+}
