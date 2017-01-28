@@ -25,23 +25,17 @@
 }
 
 #login-box {
-	width: 300px;
-	padding: 20px;
-	margin: 100px auto;
+	width: 300px;	
+	margin: 10% auto;
 	background: #fff;
 	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border: 1px solid #000;
+	-moz-border-radius: 2px;		
 }
 </style>
 </head>
-<body onload='document.loginForm.username.focus();'>
+<body onload='document.loginForm.username.focus();'>	
 
-	<h1>Spring Security Login Form (Database + Hibernate Authentication)</h1>
-
-	<div id="login-box">
-
-		<h3>Login with Username and Password</h3>
+	<div id="login-box">	
 
 		<c:if test="${not empty error}">
 			<div class="error">${error}</div>

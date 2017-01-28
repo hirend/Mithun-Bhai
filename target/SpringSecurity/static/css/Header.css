@@ -1,10 +1,9 @@
+body {
+	margin: 0px;	
+}
+
 .dropdownMenu {
-	background: #efefef; 
-	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
-	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
-	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
-	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
-	border-radius: 10px;  
+	background: #F5821F; 	
 	list-style: none;
 	position: relative;  /* allow us to absolutely position the sub menus according to this main nav bar */
 	display: block; 
@@ -22,7 +21,7 @@ In the browser this will make the link change to a blue gradient background and 
 .dropdownMenu li {
 	float: left;
 	display:block;
-	line-height:50px;
+	line-height:60px;
 	text-align:center;
 	vertical-align:top;
 	width:120px;
@@ -30,18 +29,17 @@ In the browser this will make the link change to a blue gradient background and 
 
 .dropdownMenu li:hover > ul {   /* reappear sub menus on hover*/
 	display: block;
+	background: #7a3a05; 
 }
 
 .dropdownMenu li a {
 	display: block;
 	text-decoration: none;
+	color: #fff;
 }
 
 .dropdownMenu li:hover {
-	background: #4b545f;
-	background: linear-gradient(top, #4f5964 0%, #5f6975 40%);
-	background: -moz-linear-gradient(top, #4f5964 0%, #5f6975 40%);
-	background: -webkit-linear-gradient(top, #4f5964 0%,#5f6975 40%);
+	background: #7a3a05;	
 }
 
 .dropdownMenu li:hover a {
@@ -50,15 +48,17 @@ In the browser this will make the link change to a blue gradient background and 
 
 .droprightMenu {
 	display: none; /* hide the sub menus */
-	background: #5f6975; border-radius: 0px; padding: 0;
+	background: #fab985; border-radius: 0px; padding: 0;
 	position: absolute; top: 100%;
+	z-index: 1;
 }
 
 .droprightMenu li {
 	float: none; 
-	border-top: 1px solid #6b727c;
-	border-bottom: 1px solid #575f6a;
+	border-top: 1px solid #311702;
+	border-bottom: 1px solid #311702;
 	position: relative;
+	z-index: 1;
 	
 }
 
@@ -72,5 +72,5 @@ In the browser this will make the link change to a blue gradient background and 
 }	
 
 .droprightMenu li a:hover {
-	background: #4b545f;
+	background: #f7903b;
 }

@@ -125,13 +125,13 @@ function CreateCustomerController($scope,utils) {
 	function applyStatusColorForNextPayment() {
         
 		if(vm.nextPaymentDate < today) {
-			vm.nextPaymentClass = 'alert alert-danger';
+			vm.nextPaymentClass = 'alert alert-danger-alt';
 			vm.nextPaymentMsg = 'Payment is already due !!';
 		} else if(vm.nextPaymentDate > today) {
-			vm.nextPaymentClass = 'alert alert-success';
+			vm.nextPaymentClass = 'alert alert-success-alt';
 			vm.nextPaymentMsg = 'Relax All is Well!!';
 		} else {
-			vm.nextPaymentClass = 'alert alert-warning';
+			vm.nextPaymentClass = 'alert alert-info-alt';
 			vm.nextPaymentMsg = 'Payment due for today !!';
 		}
     }
@@ -139,19 +139,20 @@ function CreateCustomerController($scope,utils) {
 	function applyStatusColorForNextOrder() {
         
 		if(vm.nextOrderDate < today) {
-			vm.nextOrderClass = 'alert alert-danger';
+			vm.nextOrderClass = 'alert alert-danger-alt';
 			vm.nextOrderMsg = 'Payment is already due !!';
 		} else if(vm.nextOrderDate > today) {
-			vm.nextOrderClass = 'alert alert-success';
+			vm.nextOrderClass = 'alert alert-success-alt';
 			vm.nextOrderMsg = 'Relax All is Well !!';
 		} else {
-			vm.nextOrderClass = 'alert alert-warning';
+			vm.nextOrderClass = 'alert alert-info-alt';
 			vm.nextOrderMsg = 'Payment due for today !!';
 		}
     } 
 
 	vm.submitCustomerForm = function submitCustomerForm () {
-		alert('form is ready to be submitted');
+		alert('form is ready to be submitted'+this);
+		console.log('form is ready to be submitted'+this);
 	}
 };
 

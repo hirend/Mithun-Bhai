@@ -4,6 +4,10 @@
 <html>
 <head>
 		<link href="<c:url value='/static/css/Header.css' />" rel="stylesheet"></link>
+		
+		<link href="<c:url value='/app/lib/font-awesome/css/font-awesome.css' />" rel="stylesheet"></link>
+		<link href="<c:url value='/app/lib/bootstrap/dist/css/bootstrap.min.css' />" rel="stylesheet"></link>
+		<link href="<c:url value='/app/css/createCustomer.css' />" rel="stylesheet"></link>
 
 		<script src="<c:url value='/app/lib/angular/angular.min.js' />" type="text/javascript"></script>
 		<script src="<c:url value='/app/lib/jquery/dist/jquery.min.js' />" type="text/javascript"></script>
@@ -14,23 +18,19 @@
 		<script src="<c:url value='/app/js/modules/aeroline.module.js' />" type="text/javascript"></script>
 		<script src="<c:url value='/app/js/services/utils.js' />" type="text/javascript"></script>
 		<script src="<c:url value='/app/js/controllers/create-customer.controller.js' />" type="text/javascript"></script>
-				      	
-      	
-      	<link rel="stylesheet" href="./app/lib/font-awesome/css/font-awesome.css">
-      	<link rel="stylesheet" href="./app/lib/bootstrap/dist/css/bootstrap.min.css">
-      	<link rel="stylesheet" href="./app/css/createCustomer.css">      	
+				      	      	     	    	
 </head>
 <body>
 	<c:import url="header.jsp"></c:import> 
 	<br />
       <div ng-app = "AerolineModule" class="container" ng-controller="CreateCustomerController as ccCtrl">
          <form ng-submit="ccCtrl.submitCustomerForm()" role="form" name="customerForm">
-            <fieldset class="text-center" style="float: center; background-color:#dddddd;">
+            <fieldset class="text-center" style="float: center; background-color:#fde3ce;">
                <label for="authorized" class="control-label">Customer Form</label>
             </fieldset>
             <fieldset>
                <!--Name Area and City Section  -->
-               <div class="row">
+               <div class="row top1">
                   <div class="col-sm-6" ng-class="{'has-error': customerForm.customerName.$touched && customerForm.customerName.$error.required , 'has-success': customerForm.customerName.$valid }">
                      <div class="row">
                         <label for="customerName" class="col-sm-4 control-label">Customer Name</label>
@@ -142,7 +142,7 @@
                </div>
                <!--Email Section  -->
                <div class="row top1" ng-class="{'has-error': customerForm.emailAddress.$touched && customerForm.emailAddress.$error.required , 'has-success': customerForm.emailAddress.$valid }">
-                  <label for="emailAddress" class="col-sm-2 control-label">Full Address</label>
+                  <label for="emailAddress" class="col-sm-2 control-label">Email Address</label>
                   <div class="col-sm-6">
                      <input type="email" id="emailAddress" name="emailAddress" class="form-control" ng-model="emailAddress" placeholder="Enter Email Address" required />
                   </div>
@@ -246,9 +246,10 @@
                      <span class="help-block" ng-show="customerForm.comment.$touched && customerForm.comment.$error.required">Please enter Comment for your change.</span>
                   </div>
                </div>
+               <input type="submit" value="Save" class="btn btn-primary top3" />
+            	<input type="button" value="Reset" class="btn top3" />
             </fieldset>
-            <input type="submit" value="Save" class="btn btn-primary top3" />
-            <input type="button" value="Reset" class="btn top3" />
+            
          </form>
       </div>
 

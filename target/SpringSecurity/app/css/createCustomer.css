@@ -2,6 +2,10 @@
 .top2 { margin-top:2%; }
 .top3 { margin-top:3%; }
 
+.alert-danger-alt { border-color: #B63E5A;background: #E26868;color: #fff; }
+.alert-success-alt { border-color: #19B99A;background: #20A286;color: #fff; }
+.alert-info-alt { border-color: #B4E1E4;background: #81c7e1;color: #fff; }
+
 select:required:invalid {
   color: gray;
 }
@@ -13,9 +17,9 @@ option {
 }
 
 fieldset{
-    background: #FCFCFC;
+    background: #fef1e7;
     padding: 16px;
-    border: 1px solid #D5D5D5;
+    border: 1px solid #ab5107;
 }
 .addfields{
     margin: 10px 0;

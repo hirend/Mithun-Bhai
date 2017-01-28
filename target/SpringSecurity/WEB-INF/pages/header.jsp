@@ -14,7 +14,7 @@
 				<li><a href="#">Customer</a>
 					<ul class="droprightMenu">
 						<li><a href="./createCustomer">Create Customer</a></li>							
-						<li><a href="./viewCustomer">View Customer Buckets</a></li>
+						<li><a href="./viewCustomer">Buckets</a></li>
 					</ul></li>
 
 				<li><a href="#">Profile</a>
@@ -23,7 +23,7 @@
 						<li><a href="#">Register</a></li>
 						<li><a href="#">Edit Profile</a></li>
 						<li><a href="#">My Posts</a></li>
-						<li><a href="#">Logout</a></li>
+						<li><a href="./login?logout">Logout</a></li>
 					</ul></li>
 
 				<li><a href="#">Help</a></li>
