@@ -2,6 +2,8 @@ package com.hiren.users.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,8 +16,12 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "user_roles", catalog = "dbo", uniqueConstraints = @UniqueConstraint(columnNames = { "role", "username" }))
-public class UserRole{
+public class UserRole implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer userRoleId;
 	private User user;
 	private String role;

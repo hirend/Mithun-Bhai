@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -29,16 +30,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests()
-			.antMatchers("/", "/index").permitAll()
-			.antMatchers("/createCustomer").permitAll()
+			.antMatchers("/login/**").permitAll()
+			.antMatchers("/createUpdateCustomer/**").permitAll()
+			.antMatchers("/**").access("hasRole('ROLE_USER')")			
 			.and().formLogin()
 			.loginPage("/login").failureUrl("/login?error")
 			.usernameParameter("username")
-			.passwordParameter("password")
+			.passwordParameter("password") 
 			.defaultSuccessUrl("/home")
-			.and().logout().logoutSuccessUrl("/login?logout")
-			.and().csrf()
-			.and().exceptionHandling().accessDeniedPage("/test");
+			.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.logoutSuccessUrl("/login?logout")
+			.and().csrf().disable();
 	}
 	
 	@Bean

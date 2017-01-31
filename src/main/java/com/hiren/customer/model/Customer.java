@@ -3,17 +3,24 @@ package com.hiren.customer.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import com.hiren.users.model.User;
+import com.hiren.users.model.UserRole;
 
 @Entity
 @Table(name = "Customer", catalog = "dbo")
@@ -22,46 +29,55 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "CustomerId", unique = true, nullable = false)
-	public int customerId;
+	private int customerId;
 		
 	@Column(name = "Name", nullable = false, length=60)
-	public String name;
+	private String name;
 	
 	@Column(name = "Area", nullable = false, length=40)
-	public String area;
+	private String area;
 		
 	@Column(name = "City", nullable = false, length=20)
-	public String city;
+	private String city;
 		
 	@Column(name = "Email", nullable = false, length=60)
-	public String email;
+	private String email;
 	
 	@Column(name = "Authorized", nullable = false)
-	public boolean authorized;
+	private boolean authorized;
 	
 	@Column(name = "NextOrderDate", nullable = false)
-	public Date nextOrderDate;
+	private Date nextOrderDate;
 
 	@Column(name = "NextPaymentDate", nullable = false)
-	public Date nextPaymentDate;
+	private Date nextPaymentDate;
 	 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "AssignedTo")	
-	public User assignedTo;
+	@ManyToOne(fetch = FetchType.EAGER)	
+	@JoinColumn(name = "AssignedTo", nullable = true)
+	private User assignedTo;
 	
 	@Column(name = "CreatedDate", nullable = false)
-	public Date createdDate;
+	private Date createdDate;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CreatedBy")	
-	public User createdBy;
+	@ManyToOne(fetch = FetchType.EAGER)	
+	@JoinColumn(name = "CreatedBy", nullable = false)
+	private User createdBy;
 	
 	@Column(name = "ModifiedDate", nullable = false)
-	public Date modifiedDate;
+	private Date modifiedDate;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ModifiedBy")	
-	public User modifiedBy;
+	@ManyToOne(fetch = FetchType.EAGER)	
+	@JoinColumn(name = "ModifiedBy", nullable = false)		
+	private User modifiedBy;
+	
+	@Version
+	private int version;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
+	private Set<CustomerContact> contacts = new HashSet<CustomerContact>(0);
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
+	private Set<CustomerHist> hist = new HashSet<CustomerHist>(0);
 
 	/**
 	 * @return the customerId
@@ -243,6 +259,30 @@ public class Customer {
 	 */
 	public void setModifiedBy(User modifiedBy) {
 		this.modifiedBy = modifiedBy;
+	}
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	public Set<CustomerContact> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(Set<CustomerContact> contacts) {
+		this.contacts = contacts;
+	}
+
+	public Set<CustomerHist> getHist() {
+		return hist;
+	}
+
+	public void setHist(Set<CustomerHist> hist) {
+		this.hist = hist;
 	}
 
 	

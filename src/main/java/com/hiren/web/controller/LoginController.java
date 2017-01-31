@@ -1,6 +1,7 @@
 package com.hiren.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class MainController {
+public class LoginController {
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public ModelAndView defaultPage() {
@@ -45,7 +46,7 @@ public class MainController {
 
 		return model;
 
-	}
+	}		
 
 	// customize the error message
 	private String getErrorMessage(HttpServletRequest request, String key) {

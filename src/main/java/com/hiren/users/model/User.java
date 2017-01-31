@@ -1,5 +1,6 @@
 package com.hiren.users.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,13 +11,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.SerializableString;
+
 @Entity
 @Table(name = "users", catalog = "dbo")
-public class User {
+public class User implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
-	private boolean enabled;
+	private boolean enabled;		
 	private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
 	public User() {
@@ -63,6 +71,7 @@ public class User {
 		this.enabled = enabled;
 	}
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	public Set<UserRole> getUserRole() {
 		return this.userRole;

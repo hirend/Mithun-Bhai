@@ -11,7 +11,7 @@ import com.hiren.customer.model.Customer;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-	
+	 
 	@Autowired
 	CustomerDao customerDao;
 	
@@ -19,6 +19,12 @@ public class CustomerServiceImpl implements CustomerService {
 	@Transactional
 	public void saveCustomer(Customer customer) {
 		customerDao.saveCustomer(customer);
+	}
+
+	@Override
+	@Transactional
+	public Customer getCustomerById(int customerId) {
+		return customerDao.getCustomerById(customerId);
 	}
 
 }

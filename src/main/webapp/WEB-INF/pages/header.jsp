@@ -23,7 +23,7 @@
 						<li><a href="#">Register</a></li>
 						<li><a href="#">Edit Profile</a></li>
 						<li><a href="#">My Posts</a></li>
-						<li><a href="./login?logout">Logout</a></li>
+						<li><a href="./logout" > Logout</a></li>
 					</ul></li>
 
 				<li><a href="#">Help</a></li>

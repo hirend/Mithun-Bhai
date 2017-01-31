@@ -30,7 +30,7 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan({ "com.hiren.*" })
 @EnableTransactionManagement
 @Import({ SecurityConfig.class })
-public class AppConfig extends WebMvcConfigurerAdapter {
+public class AppConfig extends WebMvcConfigurerAdapter { 
 
 	protected EntityManagerFactory entityManagerFactory;
 	protected JpaTransactionManager transactionManager;
@@ -42,7 +42,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         	.scanPackages("com.hiren.users.model")
             .addProperties(getHibernateProperties());
 
-        return builder.buildSessionFactory();
+        return builder.buildSessionFactory(); 
     }
 		
 
