@@ -1,10 +1,13 @@
 package com.hiren.customer.dao;
 
+import java.util.Date;
+
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import com.hiren.customer.model.Customer;
@@ -21,31 +24,33 @@ public class CustomerDao {
 	
 	public void saveCustomer(Customer customer) {
 		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();	    
+	    User loggedInUser = new User(auth.getName());
+	    
+	    for(CustomerContact cont : customer.getContacts()) {			
+			cont.setCustomer(customer);						
+		}
+		
+		for(CustomerHist hist : customer.getHist()) {			
+			hist.setCustomer(customer);
+			hist.setCreatedBy(loggedInUser);
+			hist.setRegDate(new Date());			
+		}
+	    
 		if(customer.getCustomerId()>0) {
+			customer.setModifiedBy(loggedInUser);
+			customer.setModifiedDate(new Date());
 			entityManager.merge(customer);
 		}else {
+			customer.setCreatedBy(loggedInUser);
+			customer.setCreatedDate(new Date());
+			customer.setModifiedBy(loggedInUser);
+			customer.setModifiedDate(new Date());
 			entityManager.persist(customer);
+						
 		}		
 		
-		for(CustomerContact cont : customer.getContacts()) {
-			
-			cont.setCustomer(customer);
-			if(cont.getContactId()>0) {
-				entityManager.merge(cont);
-			}else {
-				entityManager.persist(cont);
-			}			
-		}
 		
-		for(CustomerHist hist : customer.getHist()) {
-			
-			hist.setCustomer(customer);			
-			if(hist.getCustomerHistId()>0) {
-				entityManager.merge(hist);
-			}else {
-				entityManager.persist(hist);
-			}
-		}
 	}
 			
 	public Customer getCustomerById(int customerId) {		

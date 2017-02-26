@@ -1,8 +1,10 @@
 package com.hiren.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
@@ -13,10 +15,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.hiren.users.service.UserService;
 
 @Controller
 public class LoginController {
+	
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public ModelAndView defaultPage() {
@@ -46,7 +54,19 @@ public class LoginController {
 
 		return model;
 
-	}		
+	}
+	
+	@RequestMapping(value = "/getAllRoles", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> getAllRoles() {
+		return userService.getAllRoles();
+	}
+	
+	@RequestMapping(value = "/getUsersBasedOnRole", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> getUsersBasedOnRole(@RequestParam String roleName) {
+		return userService.getUsersBasedOnRole(roleName);
+	}
 
 	// customize the error message
 	private String getErrorMessage(HttpServletRequest request, String key) {

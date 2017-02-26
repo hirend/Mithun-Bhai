@@ -12,7 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.SerializableString;
 
 @Entity
 @Table(name = "users", catalog = "dbo")
@@ -24,10 +23,15 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
-	private boolean enabled;		
+	private boolean enabled;
+	private String email;
 	private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
 	public User() {
+	}
+	
+	public User(String username) {
+		this.username = username;
 	}
 
 	public User(String username, String password, boolean enabled) {
@@ -69,6 +73,15 @@ public class User implements Serializable{
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	@Column(name = "email", nullable = false, length = 60)
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@JsonIgnore

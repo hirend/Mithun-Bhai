@@ -15,12 +15,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
 import com.hiren.users.model.User;
-import com.hiren.users.model.UserRole;
 
 @Entity
 @Table(name = "Customer", catalog = "dbo")
@@ -39,6 +37,9 @@ public class Customer {
 		
 	@Column(name = "City", nullable = false, length=20)
 	private String city;
+	
+	@Column(name = "Address", nullable = false, length=1000)
+	private String address;
 		
 	@Column(name = "Email", nullable = false, length=60)
 	private String email;
@@ -46,11 +47,14 @@ public class Customer {
 	@Column(name = "Authorized", nullable = false)
 	private boolean authorized;
 	
-	@Column(name = "NextOrderDate", nullable = false)
-	private Date nextOrderDate;
+	@Column(name = "LastOrderDate", nullable = false)
+	private Date lastOrderDate;
 
 	@Column(name = "NextPaymentDate", nullable = false)
 	private Date nextPaymentDate;
+	
+	@Column(name = "NextOrderDate", nullable = false)
+	private Date nextOrderDate;
 	 
 	@ManyToOne(fetch = FetchType.EAGER)	
 	@JoinColumn(name = "AssignedTo", nullable = true)
@@ -73,10 +77,10 @@ public class Customer {
 	@Version
 	private int version;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade=CascadeType.ALL)
 	private Set<CustomerContact> contacts = new HashSet<CustomerContact>(0);
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade=CascadeType.ALL)
 	private Set<CustomerHist> hist = new HashSet<CustomerHist>(0);
 
 	/**
@@ -135,6 +139,21 @@ public class Customer {
 		this.city = city;
 	}
 
+	
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	/**
 	 * @return the email
 	 */
@@ -166,15 +185,15 @@ public class Customer {
 	/**
 	 * @return the nextOrderDate
 	 */
-	public Date getNextOrderDate() {
-		return nextOrderDate;
+	public Date getLastOrderDate() {
+		return lastOrderDate;
 	}
 
 	/**
 	 * @param nextOrderDate the nextOrderDate to set
 	 */
-	public void setNextOrderDate(Date nextOrderDate) {
-		this.nextOrderDate = nextOrderDate;
+	public void setLastOrderDate(Date lastOrderDate) {
+		this.lastOrderDate = lastOrderDate;
 	}
 
 	/**
@@ -191,6 +210,20 @@ public class Customer {
 		this.nextPaymentDate = nextPaymentDate;
 	}
 
+	/**
+	 * @return the nextOrderDate
+	 */
+	public Date getNextOrderDate() {
+		return nextOrderDate;
+	}
+
+	/**
+	 * @param nextOrderDate the nextOrderDate to set
+	 */
+	public void setNextOrderDate(Date nextOrderDate) {
+		this.nextOrderDate = nextOrderDate;
+	}
+	
 	/**
 	 * @return the assignedTo
 	 */

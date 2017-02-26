@@ -37,14 +37,15 @@ public class CustomerController {
      */
 	@RequestMapping(value = "/createUpdateCustomer", method = RequestMethod.POST)  	
 	public void createUpdateCustomer(@RequestBody Customer customer, HttpServletResponse response) throws IOException {
+									
 		try {
 			customerService.saveCustomer(customer);	
 			if(customer.getCustomerId()==0) {
-				response.setStatus(HttpServletResponse.SC_CREATED);
+				response.setStatus(HttpServletResponse.SC_CREATED);				
 			}			
 		} catch (OptimisticLockException ole) {
 			response.sendError(HttpServletResponse.SC_CONFLICT , "Someone has updated this customer, please refresh and try again");
-		}
+		}		
 	}			
 	
 	/**

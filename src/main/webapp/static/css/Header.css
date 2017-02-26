@@ -74,3 +74,12 @@ In the browser this will make the link change to a blue gradient background and 
 .droprightMenu li a:hover {
 	background: #f7903b;
 }
+#customer-success, #customer-failure {
+  position: absolute;
+  width: 300px;
+  height: 100px;
+  z-index: 15;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -150px;  
+}

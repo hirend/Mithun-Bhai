@@ -5,7 +5,18 @@
 <head>
 <link href="<c:url value='/static/css/Header.css' />" rel="stylesheet"></link>
 </head>
+<script>
+		function formSubmit() {
+			document.getElementById("logoutForm").submit();
+		}
+	</script>
 <body>
+
+<c:url value="/logout" var="logoutUrl" />
+	<form action="${logoutUrl}" method="post" id="logoutForm">
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />
+	</form>	
 			<nav>
 			<!-- Navigation -->
 			<ul class="dropdownMenu">
@@ -13,8 +24,8 @@
 				
 				<li><a href="#">Customer</a>
 					<ul class="droprightMenu">
-						<li><a href="./createCustomer">Create Customer</a></li>							
-						<li><a href="./viewCustomer">Buckets</a></li>
+						<li><a href="./createCustomerPage">Create Customer</a></li>							
+						<li><a href="./viewCustomerPage">Buckets</a></li>
 					</ul></li>
 
 				<li><a href="#">Profile</a>
@@ -23,7 +34,7 @@
 						<li><a href="#">Register</a></li>
 						<li><a href="#">Edit Profile</a></li>
 						<li><a href="#">My Posts</a></li>
-						<li><a href="./logout" > Logout</a></li>
+						<li><a href="javascript:formSubmit()"> Logout</a></li>
 					</ul></li>
 
 				<li><a href="#">Help</a></li>

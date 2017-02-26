@@ -8,12 +8,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hiren.users.model.User;
 
 
 @Entity
@@ -21,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class CustomerHist {
 	
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "CustomerHistId", unique = true, nullable = false)
 	private int customerHistId;
 	
@@ -35,6 +37,10 @@ public class CustomerHist {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CustomerId", nullable = false)
 	private Customer customer;
+	
+	@ManyToOne(fetch = FetchType.EAGER)	
+	@JoinColumn(name = "CreatedBy", nullable = true)
+	private User createdBy;
 
 	public int getCustomerHistId() {
 		return customerHistId;
@@ -66,6 +72,14 @@ public class CustomerHist {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
 	}
 
 	

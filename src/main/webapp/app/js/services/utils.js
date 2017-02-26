@@ -23,7 +23,7 @@ function utils($location, $window) {
     return {
         origin: origin,
         href: href,
-        vitalityRoot: vitalityRoot,
+        aerolineRoot: aerolineRoot,
         isUndefinedOrNull: isUndefinedOrNull
     };
 
@@ -32,8 +32,8 @@ function utils($location, $window) {
         return $location.protocol() + '://' + $location.host() + port;
     }
 
-    function vitalityRoot() {
-        return origin() + '/vitrea-vitality';
+    function aerolineRoot() {
+        return origin() + '/CustomerFollowUpApp';
     }
 
     function href(path) {

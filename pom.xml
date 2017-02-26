@@ -167,7 +167,28 @@
 			<version>4.0</version>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+            <scope>compile</scope>
+        </dependency>
 
+		<dependency>
+            <!-- this is needed despite what 'mvn dependency:analyze' says -->
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.4</version>
+            <scope>compile</scope>
+        </dependency>
 	</dependencies>
 
 	<build>

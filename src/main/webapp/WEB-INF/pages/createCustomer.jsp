@@ -17,14 +17,25 @@
 		<script src="<c:url value='/app/lib/angular-bootstrap/ui-bootstrap-tpls.min.js' />" type="text/javascript"></script>
 		<script src="<c:url value='/app/js/modules/aeroline.module.js' />" type="text/javascript"></script>
 		<script src="<c:url value='/app/js/services/utils.js' />" type="text/javascript"></script>
+		<script src="<c:url value='/app/js/services/customer.service.js' />" type="text/javascript"></script>
 		<script src="<c:url value='/app/js/controllers/create-customer.controller.js' />" type="text/javascript"></script>
 				      	      	     	    	
 </head>
 <body>
 	<c:import url="header.jsp"></c:import> 
+	<div class="alert alert-success" id="customer-success" hidden="true">
+    	<button type="button" class="close" data-dismiss="alert">x</button>
+    	<strong>Success! </strong>
+    		Customer created successfully!!
+	</div>
+	<div class="alert alert-danger" id="customer-failure" hidden="true">
+    	<button type="button" class="close" data-dismiss="alert">x</button>
+    	<strong>Success! </strong>
+    		Customer failed to get created, please contact Administrator!
+	</div>
 	<br />
       <div ng-app = "AerolineModule" class="container" ng-controller="CreateCustomerController as ccCtrl">
-         <form ng-submit="ccCtrl.submitCustomerForm()" role="form" name="customerForm">
+         <form id = "customerForm" ng-submit="ccCtrl.submitCustomerForm()" role="form" name="customerForm">
             <fieldset class="text-center" style="float: center; background-color:#fde3ce;">
                <label for="authorized" class="control-label">Customer Form</label>
             </fieldset>
@@ -35,7 +46,7 @@
                      <div class="row">
                         <label for="customerName" class="col-sm-4 control-label">Customer Name</label>
                         <div class="col-sm-8">
-                           <input type="text" id="customerName" name="customerName" class="form-control" ng-model="customerName" placeholder="Enter Customer Name" required />
+                           <input type="text" id="customerName" name="customerName" class="form-control" ng-model="ccCtrl.customerForm.name" placeholder="Enter Customer Name" required />
                         </div>
                      </div>
                   </div>
@@ -45,7 +56,7 @@
                         Area
                         </label>
                         <div class="col-sm-9">
-                           <input type="text" id="areaName" name="areaName" class="form-control" ng-model="areaName" placeholder="Enter Area Name" required />
+                           <input type="text" id="areaName" name="areaName" class="form-control" ng-model="ccCtrl.customerForm.area" placeholder="Enter Area Name" required />
                         </div>
                      </div>
                   </div>
@@ -55,7 +66,7 @@
                         City
                         </label>
                         <div class="col-sm-9" >
-                           <select id="selectCity" name="selectCity" ng-model="selectedCity" class="selectpicker form-control" required>
+                           <select id="selectCity" name="selectCity" ng-model="ccCtrl.customerForm.city" class="selectpicker form-control" required>
                               <option value="" disabled selected>Select City</option>
                               <option ng-repeat="c in ccCtrl.cities" value="{{c.city}}">{{c.city}}</option>
                            </select>
@@ -90,7 +101,7 @@
                <div class="row top1" ng-class="{'has-error': customerForm.fullAddress.$touched && customerForm.fullAddress.$error.required , 'has-success': customerForm.fullAddress.$valid }">
                   <label for="fullAddress" class="col-sm-2 control-label">Full Address</label>
                   <div class="col-sm-10">
-                     <input type="text" id="fullAddress" name="fullAddress" class="form-control" ng-model="fullAddress" placeholder="Enter Full Customer Address" required />
+                     <input type="text" id="fullAddress" name="fullAddress" class="form-control" ng-model="ccCtrl.customerForm.address" placeholder="Enter Full Customer Address" required />
                   </div>
                </div>
                <div class="row">
@@ -106,10 +117,11 @@
                      </label>
                   </div>
                   <div class="col-sm-10">
-                     <div  data-ng-repeat="contact in ccCtrl.contacts" ng-class="{top1: $first == false}" class="control-label">
+                     <div  data-ng-repeat="contact in ccCtrl.customerForm.contacts" ng-class="{top1: $first == false}" class="control-label">
                         <div class="row">
                            <div class="col-sm-2">
-                              <select class="selectpicker form-control">
+                              <select class="selectpicker form-control" ng-model="contact.type">
+                              <option value="" disabled selected>Select Type</option>
                                  <option>Owner</option>
                                  <option>Calling</option>
                               </select>
@@ -144,7 +156,7 @@
                <div class="row top1" ng-class="{'has-error': customerForm.emailAddress.$touched && customerForm.emailAddress.$error.required , 'has-success': customerForm.emailAddress.$valid }">
                   <label for="emailAddress" class="col-sm-2 control-label">Email Address</label>
                   <div class="col-sm-6">
-                     <input type="email" id="emailAddress" name="emailAddress" class="form-control" ng-model="emailAddress" placeholder="Enter Email Address" required />
+                     <input type="email" id="emailAddress" name="emailAddress" class="form-control" ng-model="ccCtrl.customerForm.email" placeholder="Enter Email Address" required />
                   </div>
                </div>
                <div class="row">
@@ -157,7 +169,7 @@
                      <label for="authorized" class="control-label">Authorized</label>
                   </div>
                   <div class="col-sm-10">                        
-                     <input type="checkbox" id="authorized" name="authorized" ng-model="ccCtrl.authorized">
+                     <input type="checkbox" id="authorized" name="authorized" ng-model="ccCtrl.customerForm.authorized">
                   </div>
                </div>
             </fieldset>
@@ -166,18 +178,18 @@
                   <div class="col-sm-6">
                      <div class="row">
                         <div class="col-sm-4"> 
-                           <label for="nextOrderDate" class="control-label">Next Order</label>
+                           <label for="lastOrderDate" class="control-label">Last Order</label>
                         </div>
                         <div class="col-sm-3">
-                           <div id = "nextOrderDate" class="date-selection-field thin-gray-border" ng-class="{'thin-red-border': ccCtrl.isNextOrderDateInvalid()}">
-                              <input id="nextOrderDate" type="text" placeholder="mm/dd/yyyy" size="7" ng-model="ccCtrl.nextOrderDate" ng-change="ccCtrl.nextOrderDateChanged()"
-                                 uib-datepicker-popup="MM/dd/yyyy" is-open="ccCtrl.isNextOrderDatePickerOpen"
+                           <div id = "lastOrderDate" class="date-selection-field thin-gray-border" ng-class="{'thin-red-border': ccCtrl.isLastOrderDateInvalid()}">
+                              <input id="lastOrderDate" type="text" placeholder="mm/dd/yyyy" size="7" ng-model="ccCtrl.customerForm.lastOrderDate" ng-change="ccCtrl.lastOrderDateChanged()"
+                                 uib-datepicker-popup="MM/dd/yyyy" is-open="ccCtrl.isLastOrderDatePickerOpen"
                                  datepicker-append-to-body="true" datepicker-options="ccCtrl.dateOptions" show-button-bar="false" />
-                              <button class="reset-button" type="button" ng-click="ccCtrl.openNextOrderDatePicker()" style="padding-right: 5px;"><i class="fa fa-calendar"></i></button>
+                              <button class="reset-button" type="button" ng-click="ccCtrl.openLastOrderDatePicker()" style="padding-right: 5px;"><i class="fa fa-calendar"></i></button>
                            </div>
                         </div>
                         <div class="col-sm-5"> 
-                           <span ng-class="ccCtrl.nextOrderClass">{{ccCtrl.nextOrderMsg}}</span>
+                           <span ng-class="ccCtrl.lastOrderClass">{{ccCtrl.lastOrderMsg}}</span>
                         </div>
                      </div>
                   </div>
@@ -188,7 +200,7 @@
                         </div>
                         <div class="col-sm-3">
                            <div id = "nextPaymentDate" class="date-selection-field thin-gray-border" ng-class="{'thin-red-border': ccCtrl.isNextPaymentDateInvalid()}">
-                              <input id="nextPaymentDate" type="text" placeholder="mm/dd/yyyy" size="7" ng-model="ccCtrl.nextPaymentDate" ng-change="ccCtrl.nextPaymentDateChanged()"
+                              <input id="nextPaymentDate" type="text" placeholder="mm/dd/yyyy" size="7" ng-model="ccCtrl.customerForm.nextPaymentDate" ng-change="ccCtrl.nextPaymentDateChanged()"
                                  uib-datepicker-popup="MM/dd/yyyy" is-open="ccCtrl.isNextPaymentDatePickerOpen"
                                  datepicker-append-to-body="true" datepicker-options="ccCtrl.dateOptions" show-button-bar="false" />
                               <button class="reset-button" type="button" ng-click="ccCtrl.openNextPaymentDatePicker()" style="padding-right: 5px;"><i class="fa fa-calendar"></i></button>
@@ -204,7 +216,7 @@
                   <div class="col-sm-6">
                      <div class="row">
                         <div class="col-sm-8 col-sm-offset-4"> 
-                           <span class="help-block" ng-show="ccCtrl.isNextOrderDateInvalid()">Next Order Date is invalid.</span>
+                           <span class="help-block" ng-show="ccCtrl.isLastOrderDateInvalid()">Last Order Date is invalid.</span>
                         </div>
                      </div>
                   </div>
@@ -216,20 +228,49 @@
                      </div>
                   </div>
                </div>
+               <div class="row top3">
+                  <div class="col-sm-6">
+                     <div class="row">
+                        <div class="col-sm-4"> 
+                           <label for="nextOrderDate" class="control-label">Next Order</label>
+                        </div>
+                        <div class="col-sm-3">
+                           <div id = "nextOrderDate" class="date-selection-field thin-gray-border" ng-class="{'thin-red-border': ccCtrl.isNextOrderDateInvalid()}">
+                              <input id="nextOrderDate" type="text" placeholder="mm/dd/yyyy" size="7" ng-model="ccCtrl.customerForm.nextOrderDate" ng-change="ccCtrl.nextOrderDateChanged()"
+                                 uib-datepicker-popup="MM/dd/yyyy" is-open="ccCtrl.isNextOrderDatePickerOpen"
+                                 datepicker-append-to-body="true" datepicker-options="ccCtrl.dateOptions" show-button-bar="false" />
+                              <button class="reset-button" type="button" ng-click="ccCtrl.openNextOrderDatePicker()" style="padding-right: 5px;"><i class="fa fa-calendar"></i></button>
+                           </div>
+                        </div>
+                        <div class="col-sm-5"> 
+                           <span ng-class="ccCtrl.nextOrderClass">{{ccCtrl.nextOrderMsg}}</span>
+                        </div>
+                     </div>
+                  </div>                  
+               </div>
+               <div class="row">
+                  <div class="col-sm-6">
+                     <div class="row">
+                        <div class="col-sm-8 col-sm-offset-4"> 
+                           <span class="help-block" ng-show="ccCtrl.isNextOrderDateInvalid()">Next Order Date is invalid.</span>
+                        </div>
+                     </div>
+                  </div>                  
+               </div>
                <div class="row top2">
                   <div class="col-sm-2">
                      <label for="assignedTo" class="control-label">Assigned To</label>
                   </div>
                   <div class="col-sm-3">
-                     <select id="role" name="role" ng-model="role" class="selectpicker form-control">
+                     <select id="role" name="role" ng-model="ccCtrl.role" class="selectpicker form-control" ng-change="ccCtrl.loadUsersBasedOnSelectedRole(ccCtrl.role)">
                         <option value="" disabled selected>Select Role</option>
-                        <option ng-repeat="r in ccCtrl.roles" value="{{r.name}}">{{r.name}}</option>
+                        <option ng-repeat="role in ccCtrl.roles" value="{{role}}">{{role}}</option>
                      </select>
                   </div>
                   <div class="col-sm-3 col-sm-offset-1">
-                     <select id="user" name="user" ng-model="user" class="selectpicker form-control">
+                     <select id="user" name="user" ng-model="ccCtrl.customerForm.assignedTo.username" class="selectpicker form-control">
                         <option value="" disabled selected>Select User</option>
-                        <option ng-repeat="u in ccCtrl.users" value="{{u.name}}">{{u.name}}</option>
+                        <option ng-repeat="user in ccCtrl.users" value="{{user}}">{{user}}</option>
                      </select>
                   </div>
                </div>
@@ -238,7 +279,7 @@
                      <label for="comment" class="control-label">Comment</label>
                   </div>
                   <div class="col-sm-10" ng-class="{'has-error': customerForm.comment.$touched && customerForm.comment.$error.required ,  'has-success': customerForm.comment.$valid}">
-                     <textarea class="form-control" rows="5" ng-model="comment" name="comment" id="comment" required></textarea>
+                     <textarea class="form-control" rows="5" ng-model="ccCtrl.comment" name="comment" id="comment" required></textarea>
                   </div>
                </div>
                <div class="row">
